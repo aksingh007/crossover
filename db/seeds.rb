@@ -5,3 +5,12 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'yaml/store'
+require 'active_record/fixtures'
+
+# Initialize settings
+puts "Initializing Settings"
+["roles"].each do |fixture_type|
+  puts "Initializing #{fixture_type}"
+  ActiveRecord::Fixtures.create_fixtures("#{Rails.root}/db/fixtures/", fixture_type)
+end

@@ -20,7 +20,7 @@ class RegistrationController < Devise::RegistrationsController
       redirect_to new_user_session_path
     else
       render 'new'  
-    end      
+    end     
   end
   private
     def user_params
