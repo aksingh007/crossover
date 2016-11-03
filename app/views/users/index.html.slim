@@ -1,0 +1,28 @@
+html
+  body
+    div class="row"
+      div align="center" 
+        h1 Welcome to Crossover Customer Support
+        h4 All Users
+        table class="table table-bordered"class="table table-hover"
+
+          thead
+            tr
+              th Image
+              th Username
+              th Email
+          tbody
+          - @user.each do |user|
+            tr
+              td
+               - if user.role!=1
+                  = image_tag(user.avatar.url(:thumb))
+              td 
+                - if user.role!=1
+                  = user.username
+              td  
+                - if user.role!=1
+                  = user.email
+    	              
+          = paginate @user
+          = page_entries_info @user

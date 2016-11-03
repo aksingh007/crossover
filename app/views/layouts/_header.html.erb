@@ -1,0 +1,26 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+
+  <div class="container">
+    <%= link_to "Crossover Customer Support", root_path, id: "logo" %>
+    <nav>
+      <ul class="nav navbar-nav pull-right">
+        <li><%= link_to "Home", root_path %></li>
+        <li><%= link_to "Help",   'http://http://quora.com/' %></li>
+        <% if !current_user.nil? %>
+          <% if current_user.role_id == 2 %>
+            
+            <li><%= link_to "Log out", destroy_user_session_path, method: "delete"%></li>
+            
+         <% elsif current_user.role_id == 1 %>
+           
+           <li><%= link_to "View all Users", users_path %></li>
+           <li><%= link_to "Log out", destroy_user_session_path, method: "delete"%>
+           
+          <% end %>
+        <% else %>
+          <li><%= link_to "Log In",new_user_session_path, :method => :get %></li>
+        <% end %>
+      </ul>
+    </nav>
+  </div>
+</header>
