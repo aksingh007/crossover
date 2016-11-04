@@ -1,36 +1,41 @@
 <%- if @tickets.where(status: status).present? %>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Severity</th>
-      <th>Status</th>
-      <th>Customer</th>
-      <th>Associate</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @tickets.where(status: status).each do |ticket| %>
-      <tr>
-        <td><%= link_to ticket.name, ticket %></td>
-        <td><%= ticket.description %></td>
-        <td><%= Severity.where(id: ticket.severity).first.try(:severity_type) %></td>
-        <td><%= Status.where(id: ticket.status).first.try(:status_type) %></td>
-        <td><%= User.where(id: ticket.customer_id).first.try(:email) %></td>
-        <td><%= User.where(id: ticket.associate_id).first.try(:email) %></td>
-        <%- if (can? :manage, Ticket) || (can? :setting, User) %>
-          <td><%= link_to 'Process', ticket %></td>
-        <%- else %>
-          <td><%= link_to 'View Status', ticket %></td>
-        <% end %>
-        <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
-        <%- if can? :setting, User  || @ticket.try(:customer_id) == current_user.try(:id)%>
-          <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>  
-      </tr>
-    <% end %>
-  </tbody>
+  <%= link_to 'New Ticket', new_ticket_path , class: "pull-right btn btn-primary"%>
+  <% @tickets.where(status: status).each do |ticket| %>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 customerTicket">
+      <div class = "pull-right">
+        <span class= "text-muted"><%= Severity.where(id: ticket.severity).first.try(:severity_type) %></span>
+        <span class= "text-muted">|</span>
+        <span  class= "text-muted"><%= Status.where(id: ticket.status).first.try(:status_type) %></span>
+        <span class= "text-muted delete"><%= link_to 'x', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h3 class= "noMargin"><%= link_to ticket.name, ticket %></h3>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h4><%= ticket.description %></h4>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 emailList">
+          <h4>Customer email</h4>
+          <h6><%= User.where(id: ticket.customer_id).first.try(:email) %></h6>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 emailList">
+          <h4>Associate email</h4>
+          <h6><%= User.where(id: ticket.associate_id).first.try(:email) %></h6>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <%- if (can? :manage, Ticket) || (can? :setting, User) %>
+            <%= link_to 'Process', ticket ,class: "btn btn-primary" %>
+          <%- else %>
+            <%= link_to 'View Status', ticket ,class: "btn btn-primary"%>
+          <% end %>
+        <%= link_to 'Edit', edit_ticket_path(ticket),class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 <%- else %>
   <h4>No Results Found.!</h4>
 <% end %>

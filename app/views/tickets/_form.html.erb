@@ -21,17 +21,17 @@
   </div>
   <div class="field">
     <%= f.label :severity %><br>
-    <%= f.select :severity, options_for_select(Severity.where(is_valid: true).all.collect { |s| [ s.severity_type, s.id ] }, @ticket.severity) %>
+    <%= f.select :severity, options_for_select(Severity.where(is_valid: true).all.collect { |s| [ s.severity_type, s.id ] }, @ticket.severity),{}, class: "form-control" %>
   </div>
   <div class="field">
     <%= f.label :status %><br>
-    <%= f.select :status, options_for_select(Status.where(is_valid: true).all.collect { |s| [ s.status_type, s.id ] }, @ticket.status)%>
+    <%= f.select :status, options_for_select(Status.where(is_valid: true).all.collect { |s| [ s.status_type, s.id ] }, @ticket.status),{}, class: "form-control"%>
   </div>
   <div class="field">
     <%= f.label :customer_id %><br>
-    <%= f.select :customer_id, options_for_select(User.all.collect { |u| [ u.email, u.id ] }, @ticket.customer_id) %>
+    <%= f.select :customer_id, options_for_select(User.all.collect { |u| [ u.email, u.id ] }, @ticket.customer_id),{}, class: "form-control" %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-primary"%>
   </div>
 <% end %>
