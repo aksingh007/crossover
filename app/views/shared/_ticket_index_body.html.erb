@@ -1,0 +1,36 @@
+<%- if @tickets.where(status: status).present? %>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Severity</th>
+      <th>Status</th>
+      <th>Customer</th>
+      <th>Associate</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tickets.where(status: status).each do |ticket| %>
+      <tr>
+        <td><%= link_to ticket.name, ticket %></td>
+        <td><%= ticket.description %></td>
+        <td><%= Severity.where(id: ticket.severity).first.try(:severity_type) %></td>
+        <td><%= Status.where(id: ticket.status).first.try(:status_type) %></td>
+        <td><%= User.where(id: ticket.customer_id).first.try(:email) %></td>
+        <td><%= User.where(id: ticket.associate_id).first.try(:email) %></td>
+        <%- if (can? :manage, Ticket) || (can? :setting, User) %>
+          <td><%= link_to 'Process', ticket %></td>
+        <%- else %>
+          <td><%= link_to 'View Status', ticket %></td>
+        <% end %>
+        <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
+        <%- if can? :setting, User  || @ticket.try(:customer_id) == current_user.try(:id)%>
+          <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>  
+      </tr>
+    <% end %>
+  </tbody>
+<%- else %>
+  <h4>No Results Found.!</h4>
+<% end %>

@@ -12,23 +12,34 @@
 
 <p>
   <strong>Severity:</strong>
-  <%= @ticket.severity %>
+  <%= Severity.where(id: @ticket.severity).first.try(:severity_type) %>
 </p>
 
 <p>
   <strong>Status:</strong>
-  <%= @ticket.status %>
+  <%= Status.where(id: @ticket.status).first.try(:status_type) %>
 </p>
 
 <p>
   <strong>Customer:</strong>
-  <%= @ticket.customer_id %>
+  <%= User.where(id: @ticket.customer_id).first.try(:email) %>
 </p>
 
 <p>
   <strong>Associate:</strong>
-  <%= @ticket.associate_id %>
+  <%= User.where(id: @ticket.associate_id).first.try(:email) %>
 </p>
 
-<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
-<%= link_to 'Back', tickets_path %>
+<%- if (can? :manage, Ticket) || (can? :setting, User) %>
+  <%= link_to 'Edit', edit_ticket_path(@ticket) %> |
+  <%= link_to 'Back', tickets_path %>
+  <%= form_for(@ticket) do |f| %>
+    <div class="field">
+      <%= f.label :assign_Associate %><br>
+      <%= f.select :associate_id, options_for_select(User.all.collect { |u| [ u.email, u.id ] }, @ticket.associate_id) %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+<% end %>

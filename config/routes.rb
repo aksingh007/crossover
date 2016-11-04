@@ -8,7 +8,15 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   
-
+  resources :users do
+    collection do
+      post 'update_role'
+      get 'admin_setting'
+      get 'export_report'
+      get 'export_all_tickets_report'
+      get 'export_quiz_attempted_users'
+    end
+  end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

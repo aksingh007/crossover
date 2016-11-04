@@ -1,0 +1,6 @@
+<h2>Export Reports</h2>
+
+<table class="table table-bordered"class="table table-hover">
+  <li><%= link_to "Download all closed Tickets Reports", export_all_tickets_report_users_path(format: :csv,status: 2) %></li>
+  <li><%= link_to "Download all open Tickets Reports", export_all_tickets_report_users_path(format: :csv,status: 1) %></li>
+</table>

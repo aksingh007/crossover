@@ -2,34 +2,16 @@
 
 <h1>Listing Tickets</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Severity</th>
-      <th>Status</th>
-      <th>Customer</th>
-      <th>Associate</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<h2>Status - Open/Reopen Tickets</h2>
 
-  <tbody>
-    <% @tickets.each do |ticket| %>
-      <tr>
-        <td><%= ticket.name %></td>
-        <td><%= ticket.description %></td>
-        <td><%= ticket.severity %></td>
-        <td><%= ticket.status %></td>
-        <td><%= ticket.customer_id %></td>
-        <td><%= ticket.associate_id %></td>
-        <td><%= link_to 'Show', ticket %></td>
-        <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
-        <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+<table class="table table-bordered"class="table table-hover">
+  <%= render 'shared/ticket_index_body', status: [1,4] %>
+</table>
+
+<h2>Status - Closed/Resolved Tickets</h2>
+
+<table class="table table-bordered"class="table table-hover">
+  <%= render 'shared/ticket_index_body', status: [2,3] %>
 </table>
 
 <br>

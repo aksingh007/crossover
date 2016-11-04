@@ -21,19 +21,15 @@
   </div>
   <div class="field">
     <%= f.label :severity %><br>
-    <%= f.number_field :severity %>
+    <%= f.select :severity, options_for_select(Severity.where(is_valid: true).all.collect { |s| [ s.severity_type, s.id ] }, @ticket.severity) %>
   </div>
   <div class="field">
     <%= f.label :status %><br>
-    <%= f.number_field :status %>
+    <%= f.select :status, options_for_select(Status.where(is_valid: true).all.collect { |s| [ s.status_type, s.id ] }, @ticket.status)%>
   </div>
   <div class="field">
     <%= f.label :customer_id %><br>
-    <%= f.number_field :customer_id %>
-  </div>
-  <div class="field">
-    <%= f.label :associate_id %><br>
-    <%= f.number_field :associate_id %>
+    <%= f.select :customer_id, options_for_select(User.all.collect { |u| [ u.email, u.id ] }, @ticket.customer_id) %>
   </div>
   <div class="actions">
     <%= f.submit %>

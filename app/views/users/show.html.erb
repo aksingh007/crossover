@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @user.username %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Assigned Tickets Count:</strong>
+  <%= Ticket.where(associate_id: @user.id).count %>
+</p>
+
+<%= link_to 'Back', users_path %>
+
+<%= form_for('change_role', url: update_role_users_path) do |f| %>
+  <div class="field">
+    <%= f.hidden_field :id, value: @user.id %>
+    <%= f.label :update_Role %><br>
+    <ul>
+      <% Role.all.each do |role| %>
+        <li>
+          <%= check_box_tag 'role_ids[]', role.title, @user.custom_roles.pluck(:title).include?(role.title) -%>
+          <%= h role.title -%>
+        </li>
+      <% end %>
+    </ul> 
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

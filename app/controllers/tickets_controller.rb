@@ -1,9 +1,21 @@
 class TicketsController < ApplicationController
+  
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 
   def index
+    if current_user.custom_roles.pluck(:title).include?('admin')
+      get_all_tickets
+    elsif current_user.custom_roles.pluck(:title).include?('associate')
+      get_all_tickets
+    else
+      @tickets = Ticket.where(customer_id: current_user.id)
+      respond_with(@tickets)
+    end
+  end
+
+  def get_all_tickets
     @tickets = Ticket.all
     respond_with(@tickets)
   end

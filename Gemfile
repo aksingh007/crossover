@@ -5,14 +5,14 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.0.rc1'
 # Use mysql as the database for Active Record
 gem 'mysql2', '~> 0.3.18'
-#gem 'slim'
-gem 'devise'
+gem 'slim'
 gem 'kaminari'
 gem 'bootstrap-sass', '3.2.0.0'
 gem 'paperclip', '~> 4.1'
 
-# Use for ability and authorization
+# Authentication and authorization
 gem 'cancancan', '~> 1.10'
+gem 'devise'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0'
