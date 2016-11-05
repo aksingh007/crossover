@@ -1,4 +1,5 @@
 require 'csv'
+require 'prawn'
 class UsersController < ApplicationController
   # Public: /users Display all Users
   #
@@ -42,6 +43,10 @@ class UsersController < ApplicationController
     ticket_ids = Ticket.where("tickets.created_at > ?", 1.month.ago).where(status: params[:status]).pluck(:id)
     respond_to do |format|
       format.csv { send_data Ticket.to_csv(ticket_ids) }
+      pdf = Prawn::Document.new
+      pdf.text(Ticket.to_csv(ticket_ids))
+      ticket_report = pdf.render_file('csv.pdf')
+      format.pdf {send_data ticket_report}
     end
   end
 

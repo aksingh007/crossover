@@ -1,5 +1,11 @@
 class Ticket < ActiveRecord::Base
 
+  #Validations
+  validates :name, presence: true
+  validates :description, presence: true
+  validates :severity, presence: true
+  validates :status, presence: true
+
   def self.to_csv(ticket_ids)
     CSV.generate do |csv|
       csv << ['Ticket_ID', 'Ticket Name', 'Ticket Description', 'Customer Username', 'Handled by Associate', 'Created AT']

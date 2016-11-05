@@ -13,6 +13,10 @@ gem 'paperclip', '~> 4.1'
 # Authentication and authorization
 gem 'cancancan', '~> 1.10'
 gem 'devise'
+#For PDF creation
+gem 'pdfkit'
+gem 'wkhtmltopdf'
+gem 'prawn'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0'

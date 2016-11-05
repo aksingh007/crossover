@@ -1,6 +1,9 @@
-<h2>Export Reports</h2>
-
-<table class="table table-bordered"class="table table-hover">
-  <li><%= link_to "Download all closed Tickets Reports", export_all_tickets_report_users_path(format: :csv,status: 2) %></li>
-  <li><%= link_to "Download all open Tickets Reports", export_all_tickets_report_users_path(format: :csv,status: 1) %></li>
-</table>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 customerTicket">
+  <h1>Export Reports</h1>
+  <ul class="settings">
+    <li><%= link_to "Download all closed Tickets Reports(CSV)", export_all_tickets_report_users_path(format: :csv,status: 2) %></li>
+    <li><%= link_to "Download all open Tickets Reports(CSV)", export_all_tickets_report_users_path(format: :csv,status: 1) %></li>
+    <li><%= link_to "Download all closed Tickets Reports(PDF)", export_all_tickets_report_users_path(format: :pdf,status: 2) %></li>
+    <li><%= link_to "Download all open Tickets Reports(PDF)", export_all_tickets_report_users_path(format: :pdf,status: 1) %></li>
+  </ul>
+</div>
